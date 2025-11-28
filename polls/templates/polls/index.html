@@ -3,11 +3,15 @@
     <head>
         <meta charset="utf-8"/>
         <title>Question List Page</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'polls/style.css' %}">
     </head>
     <body>
 
         {% if latest_question_list %}
-
+        <div style="background-color: burlywood;">
+            <h3> Latest Questions </h3>
+        </div>
         <ul>
 
         {% for question in latest_question_list %}
