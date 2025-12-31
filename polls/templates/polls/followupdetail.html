@@ -7,8 +7,8 @@
         <title>Follow-up</title>
     </head>
     <body>
-        <h1>{{ followup.followupquestion.question_text }}</h1>
-        <h2>{{ followup.followupquestion_text }}</h2>
+        <h1>{{ followup.followupquesion.question_text }}</h1>
+        <h2>{{ followup.content }}</h2>
         <p>Published: {{ followup.pub_date }}</p>
         <a href="{% url 'polls:results' followup.followupquestion.id %}">View parent results</a>
     </body>

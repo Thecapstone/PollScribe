@@ -24,7 +24,6 @@ class DetailView(generic.DetailView):
         )
     
 
-
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
@@ -48,7 +47,7 @@ def vote(request, question_id):
 
         # If the question has any follow-up questions, redirect to the
         # followup's own ID; otherwise go to the results page.
-        followups = question.followupquestion_set.all()
+        followups = question.extra_questions.all()
         if followups.exists():
             followup = followups.first()
             return HttpResponseRedirect(reverse("polls:followup", args=(followup.id,)))
@@ -56,5 +55,5 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
 
 def followupquestionDisplay(request, pk):
-    followup = get_object_or_404(FollowUpQuestion, pk=pk)
+    followup = get_object_or_404(FollowUpQuestion, id=pk)
     return render(request, "polls/followupdetail.html", {"followup": followup})
