@@ -1,0 +1,16 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+
+# Django
+db.sqlite3
+
+# OS / Editor
+.vscode/
+.DS_Store
