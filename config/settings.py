@@ -110,7 +110,9 @@ DATABASES = {
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": "10",
 }
 
 
@@ -155,6 +157,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
 ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 
 ACCOUNT_SIGNUP_FIELDS = [
@@ -164,4 +168,7 @@ ACCOUNT_SIGNUP_FIELDS = [
     'password2*',
 ]
 
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL = 'secret'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.CustomSignupForm'
