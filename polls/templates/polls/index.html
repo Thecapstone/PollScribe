@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{% static 'polls/style.css' %}">
     </head>
     <body>
-
+        <h1>Polls</h1>
         {% if latest_question_list %}
         <div style="background-color: burlywood;">
             <h3> Latest Questions </h3>
@@ -16,7 +16,10 @@
 
         {% for question in latest_question_list %}
 
-            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+            <li>{{ question.question_text }} 
+                <p><a href="{% url 'polls:detail' question.id %}"> View </a></p>
+            </li>
+
 
         {% endfor %}
 
@@ -25,5 +28,10 @@
         {% else %}
             <p>No polls are available.</p>
         {% endif %}
+
+        <form action="{% url 'polls:create_poll' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Create New Poll">
+        </form>
     </body>
 </html>
