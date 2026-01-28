@@ -8,6 +8,7 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     path_count = models.IntegerField(default = 0)
+    branches = models.IntegerField(default = 0)
     pub_date = models.DateTimeField("date published")
 
     def __str__(self):
@@ -31,7 +32,9 @@ class Choice(models.Model):
         return self.choice_text
     
 class FollowUpQuestion(models.Model):
-    followupquestion = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='extra_questions')
+    parent_question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="new_branch", null=True, blank=True)
+    parent_choice = models.ForeignKey(Choice, on_delete=models.CASCADE, related_name="extra_questions", null=True, blank=True)
+    # a self-reference object allowing for responses to other responses (similar to comments) 
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children', null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     path_count = models.IntegerField(default = 0)
