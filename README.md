@@ -1,5 +1,5 @@
 # **PollScribe**
-> Overcoming writer's block with community
+> A StackOverflow for creatives; Overcoming writer's block with community
 
 ## **App Description**
 > An app for creatives and writers to explore writing prompts and storyline paths in the form of polls.
