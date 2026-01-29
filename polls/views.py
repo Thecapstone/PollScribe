@@ -32,12 +32,13 @@ class PollList(APIView):
         return Response({'latest_question_list':queryset})
 
 class NewPoll(APIView):
+    permission_classes = [AllowAny]
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'polls/create_poll.html'
 
     def post(self, request):
         serializer = CreateQuestionSerializer(data=request.data)
-
+        
         if serializer.is_valid():
             question = serializer.save(
                 author = request.user,
@@ -50,13 +51,11 @@ class NewPoll(APIView):
                     question = question,
                     choice_text = text
                 )
-            return Response({"question": question}, status = 201)
-        return render(
-            "polls/index.html",
-            {"errors": serializer.errors},
-            status = 400
-        )
-
+            serializer.save()
+            return Response({'serializer': serializer}, template_name='polls/index.html', status=201)
+        return Response(
+            {"errors": serializer.errors, 'serializers': serializer},
+             status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -148,7 +147,7 @@ class ResultsView(generic.DetailView):
     template_name = "polls/results.html"
 
 
-def vote(request, question_id):
+def Vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choices.get(pk=request.POST["choice"])
@@ -167,7 +166,7 @@ def vote(request, question_id):
 
         # If the question has any follow-up questions, redirect to the
         # followup's own ID; otherwise go to the results page.
-        followups = question.extra_questions.all()
+        followups = question.new_branch.all()
         if followups.exists():
             followup = followups.first()
             return HttpResponseRedirect(reverse("polls:followup", args=(followup.id,)))
