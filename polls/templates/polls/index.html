@@ -29,9 +29,9 @@
             <p>No polls are available.</p>
         {% endif %}
 
-        <form action="{% url 'polls:create_poll' %}" method="post">
+        <form action="{% url 'polls:create-poll' %}" method="post">
         {% csrf_token %}
         <input type="submit" value="Create New Poll">
         </form>
     </body>
-</html>
+</html> 

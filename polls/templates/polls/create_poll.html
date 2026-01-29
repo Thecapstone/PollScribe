@@ -14,11 +14,13 @@
         <form action="{ % url 'polls:index' }" method="post">
             {% csrf_token %}
 
-            <input type="text" name="question_text">
+            <label for="question">Question_text</label>
+            <input type="text" id="question" name="question_text" placeholder="Where are the stars tonight?" >
 
-            <input type="text" name="choices">
-            <input type="text" name="choices">
-            <input type="text" name="choices">
+            <label for="choice">Choice_text</label>
+            <input type="text" id="choice" name="choices" placeholder="In your eyes perhaps?" >
+            <input type="text" id="choice" name="choices" placeholder="Hiding from the moths?" >
+            <input type="text" id="choice" name="choices" placeholder="Planning some sort of eclipse?" >
 
             <button type="submit">Create poll</button>
 
